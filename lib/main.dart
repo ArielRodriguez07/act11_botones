@@ -4,39 +4,128 @@ void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-  // This widget is the root of your application.
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      // Application name
-      title: 'Flutter Hello World',
-      // Application theme data, you can set the colors for the application as
-      // you want
+      debugShowCheckedModeBanner: false,
+      title: 'Ariel Rodriguez Ceniceros',
       theme: ThemeData(
-        // useMaterial3: false,
         primarySwatch: Colors.blue,
       ),
-      // A widget which will be started on application startup
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title: 'Ariel Rodriguez Ceniceros'),
     );
   }
 }
 
 class MyHomePage extends StatelessWidget {
   final String title;
-  const MyHomePage({super.key, required this.title});  
+  const MyHomePage({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // The title text which will be shown on the action bar
-        title: Text(title),
-      ),
-      body: Center(
-        child: Text(
-          'Hello, World!',
+        title: Text(
+          title,
+          style: const TextStyle(color: Colors.white), // Texto blanco
         ),
+        centerTitle: true, // Centrar el título
+        backgroundColor: Colors.purple, // Fondo morado
+      ),
+      body: Column(
+        children: [
+          // Número debajo del AppBar
+          Container(
+            width: double.infinity, // Ocupar todo el ancho
+            padding: const EdgeInsets.all(10), // Espaciado interno
+            color: Colors.purple, // Fondo morado
+            child: const Text(
+              "22308051280706",
+              textAlign: TextAlign.center, // Centrar el texto
+              style: TextStyle(
+                color: Colors.white, // Texto blanco
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          Expanded(
+            child: Center(
+              child: HomeButtons(), // Usa el widget HomeButtons
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class HomeButtons extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        _buildHomeButton("GO to home", Colors.purple),
+        _buildHomeButton("GO to home", Colors.grey.shade300), // Gris claro
+        _buildHomeButton("GO to home", Colors.black),
+        _buildHomeButton("GO to home", Colors.pink.shade200), // Rosa claro
+
+        // Botones adicionales
+        _buildHomeButton("GO to home", Colors.orange), // Naranja
+        _buildHomeButton("GO to home", Colors.teal), // Verde azulado
+
+        const SizedBox(
+            height: 20), // Espacio entre los botones "GO to home" y "Elevated"
+
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TextButton(
+              onPressed: () {
+                // Lógica del botón TextButton
+              },
+              child: const Text("TextButton"),
+            ),
+            const SizedBox(width: 10), // Espacio entre los botones
+            ElevatedButton(
+              onPressed: () {
+                // Lógica del botón Elevated
+              },
+              child: const Text("Elevated"),
+              style: ElevatedButton.styleFrom(
+                backgroundColor:
+                    Colors.red, // Usar backgroundColor en lugar de primary
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildHomeButton(String text, Color color) {
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            Icons.home,
+            color: color,
+          ),
+          const SizedBox(width: 8.0),
+          TextButton(
+            onPressed: () {
+              // Lógica del botón "GO to home"
+            },
+            child: Text(
+              text,
+              style: TextStyle(color: color),
+            ),
+          ),
+        ],
       ),
     );
   }
