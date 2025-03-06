@@ -67,18 +67,18 @@ class HomeButtons extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        _buildHomeButton("GO to home", Colors.purple, showIcon: true),
+        _buildHomeButton("GO to home", Colors.purple,
+            showIcon: true, hasShadow: false), // Botón 1
         _buildHomeButton("GO to home", Colors.grey.shade300,
-            showIcon: true), // Gris claro
-        _buildHomeButton("GO to home", Colors.black, showIcon: true),
+            showIcon: true, hasShadow: true), // Botón 2 (con sombra gris)
+        _buildHomeButton("GO to home", Colors.black,
+            showIcon: true, hasShadow: false), // Botón 3
         _buildHomeButton("GO to home", Colors.pink.shade200,
-            showIcon: true), // Rosa claro
-
-        // Botones adicionales sin ícono
+            showIcon: true, hasShadow: true), // Botón 4 (con sombra gris)
         _buildHomeButton("GO to home", Colors.orange,
-            showIcon: false), // Naranja
+            showIcon: false, hasShadow: false), // Botón 5
         _buildHomeButton("GO to home", Colors.teal,
-            showIcon: false), // Verde azulado
+            showIcon: false, hasShadow: true), // Botón 6 (con sombra gris)
 
         const SizedBox(
             height: 20), // Espacio entre los botones "GO to home" y "Elevated"
@@ -109,29 +109,49 @@ class HomeButtons extends StatelessWidget {
     );
   }
 
-  Widget _buildHomeButton(String text, Color color, {bool showIcon = true}) {
+  Widget _buildHomeButton(String text, Color color,
+      {bool showIcon = true, bool hasShadow = false}) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          if (showIcon) // Mostrar ícono solo si showIcon es true
-            Icon(
-              Icons.home,
-              color: color,
+      decoration: hasShadow
+          ? BoxDecoration(
+              borderRadius: BorderRadius.circular(8), // Bordes redondeados
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5), // Sombra gris
+                  spreadRadius: 1, // Reducir la extensión de la sombra
+                  blurRadius: 3, // Reducir el difuminado de la sombra
+                  offset: const Offset(0, 2), // Desplazamiento de la sombra
+                ),
+              ],
+            )
+          : null,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8), // Bordes redondeados
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min, // Ajustar el ancho al contenido
+          children: [
+            if (showIcon) // Mostrar ícono solo si showIcon es true
+              Icon(
+                Icons.home,
+                color: color,
+              ),
+            if (showIcon) // Espacio solo si se muestra el ícono
+              const SizedBox(width: 8.0),
+            TextButton(
+              onPressed: () {
+                // Lógica del botón "GO to home"
+              },
+              child: Text(
+                text,
+                style: TextStyle(color: color),
+              ),
             ),
-          if (showIcon) // Espacio solo si se muestra el ícono
-            const SizedBox(width: 8.0),
-          TextButton(
-            onPressed: () {
-              // Lógica del botón "GO to home"
-            },
-            child: Text(
-              text,
-              style: TextStyle(color: color),
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
