@@ -67,14 +67,18 @@ class HomeButtons extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        _buildHomeButton("GO to home", Colors.purple),
-        _buildHomeButton("GO to home", Colors.grey.shade300), // Gris claro
-        _buildHomeButton("GO to home", Colors.black),
-        _buildHomeButton("GO to home", Colors.pink.shade200), // Rosa claro
+        _buildHomeButton("GO to home", Colors.purple, showIcon: true),
+        _buildHomeButton("GO to home", Colors.grey.shade300,
+            showIcon: true), // Gris claro
+        _buildHomeButton("GO to home", Colors.black, showIcon: true),
+        _buildHomeButton("GO to home", Colors.pink.shade200,
+            showIcon: true), // Rosa claro
 
-        // Botones adicionales
-        _buildHomeButton("GO to home", Colors.orange), // Naranja
-        _buildHomeButton("GO to home", Colors.teal), // Verde azulado
+        // Botones adicionales sin ícono
+        _buildHomeButton("GO to home", Colors.orange,
+            showIcon: false), // Naranja
+        _buildHomeButton("GO to home", Colors.teal,
+            showIcon: false), // Verde azulado
 
         const SizedBox(
             height: 20), // Espacio entre los botones "GO to home" y "Elevated"
@@ -105,17 +109,19 @@ class HomeButtons extends StatelessWidget {
     );
   }
 
-  Widget _buildHomeButton(String text, Color color) {
+  Widget _buildHomeButton(String text, Color color, {bool showIcon = true}) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
-            Icons.home,
-            color: color,
-          ),
-          const SizedBox(width: 8.0),
+          if (showIcon) // Mostrar ícono solo si showIcon es true
+            Icon(
+              Icons.home,
+              color: color,
+            ),
+          if (showIcon) // Espacio solo si se muestra el ícono
+            const SizedBox(width: 8.0),
           TextButton(
             onPressed: () {
               // Lógica del botón "GO to home"
